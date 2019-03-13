@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{'Unsubscribe' if subscription.is_subscribed else 'Subscribe'}}{% endblock %}
+{% block page_title %}{{'Unsubscribe' if subscription.is_subscribed else 'Subscribe'}}{% endblock %}
+{% block nav_subscription %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="alert alert-warning">
+            Do you really want to {{'unsubscribe' if subscription.is_subscribed else 'subscribe'}}
+            {{subscription.customer_id}}?
+        </div>
+        <form method="POST">
+            <input type="submit" class="btn btn-warning" value="{{'Unsubscribe' if subscription.is_subscribed else 'Subscribe'}}" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}

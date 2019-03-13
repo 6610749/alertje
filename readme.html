@@ -1,0 +1,54 @@
+<h1><a id="debijenkorf_web_scraper_0"></a>debijenkorf web scraper</h1>
+<h2><a id="Installation_2"></a>Installation</h2>
+<p>Installation requires Python 3.6+. It is recommended to use virtualenv.</p>
+<h3><a id="Installing_virtualenv_6"></a>Installing virtualenv</h3>
+<pre><code>pip install virtualenvwrapper
+export WORKON_HOME=/opt/Envs
+mkdir -p $WORKON_HOME
+source /usr/local/bin/virtualenvwrapper.sh
+mkvirtualenv debijenkorf --python=python3.6
+</code></pre>
+<p>To have virtualenv available next time you login:</p>
+<pre><code>echo 'WORKON_HOME=$HOME/Envs' &gt;&gt; ~/.bashrc
+echo 'source /usr/local/bin/virtualenvwrapper.sh' &gt;&gt; ~/.bashrc
+</code></pre>
+<h3><a id="Installing_dependencies_19"></a>Installing dependencies</h3>
+<pre><code>mkdir -p /opt/debijenkorf
+cp debijenkorf.zip /opt/debijenkorf
+cd /opt/debijenkorf
+unzip debijenkorf.zip
+chown -R www-data:www-data /opt/debijenkorf /opt/Envs/debijenkorf
+workon debijenkorf
+pip install -r requirements.txt
+</code></pre>
+<h3><a id="Installing_MySQL_database_29"></a>Installing MySQL database</h3>
+<pre><code>cat conf/create.sql | mysql -uroot
+python manage.py migrate
+</code></pre>
+<h3><a id="Installing_for_Apache_34"></a>Installing for Apache</h3>
+<pre><code>sudo apt-get install apache2 libapache2-mod-wsgi-py3
+ln -s /opt/debijenkorf/conf/client.alertje.nl.conf /etc/apache2/sites-enabled/
+a2enmod wsgi
+systemctl restart apache2
+</code></pre>
+<h3><a id="Migrating_data_41"></a>Migrating data</h3>
+<pre><code>python manage.py populate
+</code></pre>
+<h3><a id="Installing_on_supervisord_45"></a>Installing on supervisord</h3>
+<pre><code>ln -s /opt/debijenkorf/conf/debijenkorf_supervisord.conf /etc/supervisor/conf.d/
+supervisorctl reread
+supervisorctl update
+</code></pre>
+<h2><a id="Running_51"></a>Running</h2>
+<p>To manually run the components:</p>
+<h3><a id="Scrapper_CLI_55"></a>Scrapper (CLI)</h3>
+<p>Running the software is done in the terminal using:</p>
+<pre><code>python main.py
+</code></pre>
+<h3><a id="SMS_sender_CLI_61"></a>SMS sender (CLI)</h3>
+<p>Running the software is done in the terminal using:</p>
+<pre><code>python main.py --sms-messenger
+</code></pre>
+<h3><a id="Web_server_Flask_67"></a>Web server (Flask)</h3>
+<p>Running the software is done in the terminal using:</p>
+<pre><code>python main.py --server</code></pre>

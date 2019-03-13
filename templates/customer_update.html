@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block page_description %}Producten met gedetecteerde prijsveranderingen worden hieronder weergegeven. Kijk op de help pagina voor meer info.{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for price in prices %}
+    <a class="col-md-3" href="{{price.product.url}}" title="Visit {{price.product.url}}" target="_blank norel">
+        <div class="panel panel-default product">
+            <div style="height:200px;overflow:hidden;position:relative;">
+                <img src="{{price.product.image}}" style="width:100%;" />
+            </div>
+            <div class="panel-body product">
+        <label class="price">&euro; {{price.price}}</label>
+                <h4 class="text-bold">{{price.product.name}}</h4>
+                <div style="height:50px;overflow:hidden;">{{price.product.description}}</div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

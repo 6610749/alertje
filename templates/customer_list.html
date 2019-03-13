@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block title %}Customers{% endblock %}
+{% block page_title %}Customers{% endblock %}
+{% block nav_customer %}active{% endblock %}
+
+{% block action_button %}<a class="btn btn-sm w-xs font-bold btn-primary modal-ctrl" href="{{url_for('customer_form')}}">Add</a>{%
+endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ui-jq="dataTable" ui-options="{columnDefs: [{ orderable: false, targets: 4 }], pageLength: 50}"
+                class="table table-striped b-t b-b">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Password</th>
+                        <th>Brands</th>
+                        <th>Is Admin</th>
+                        <th style="width:170px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers %}
+                    <tr>
+                        <td>{{customer.number}}</td>
+                        <td>{{customer.password if customer.password else ''}}</td>
+                        <td>{% for s in customer.subscriptions %}<label class="label bg-info">{{s.brand_id}}</label>{% endfor %}</td>
+                        <td><label class="label bg-{{'info' if customer.is_admin else 'danger'}}">{{'Yes' if customer.is_admin else 'No'}}</label></td>
+                        <td>
+                            <a href="{{url_for('customer_subscription', number=customer.number)}}" class="btn btn-default btn-xs modal-ctrl">Subscriptions</a>
+                            <a href="{{url_for('customer_form', number=customer.number)}}" class="btn btn-default btn-xs modal-ctrl">Edit</a>
+                            <a href="{{url_for('customer_remove', number=customer.number)}}" class="btn btn-default btn-xs modal-ctrl">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

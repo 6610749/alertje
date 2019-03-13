@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}Brands{% endblock %}
+{% block page_title %}Brands{% endblock %}
+{% block nav_brand %}active{% endblock %}
+
+{% block action_button %}<a class="btn btn-sm w-xs font-bold btn-primary modal-ctrl" href="{{url_for('brand_form')}}">Add</a>{%
+endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ui-jq="dataTable" ui-options="{columnDefs: [{ orderable: false, targets: 2 }], pageLength: 50}" class="table table-striped b-t b-b">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>No. Products</th>
+                        <th style="width:170px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for brand in brands %}
+                    <tr>
+                        <td>{{brand.name}}</td>
+                        <td>{{brand.num_products}}</td>
+                        <td>
+                            <a href="{{url_for('subscription_list', name=brand.name)}}" class="btn btn-default btn-xs modal-ctrl">Subscribers</a>
+                            <a href="{{url_for('brand_form', name=brand.name)}}" class="btn btn-default btn-xs modal-ctrl">Edit</a>
+                            <a href="{{url_for('brand_remove', name=brand.name)}}" class="btn btn-default btn-xs modal-ctrl">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

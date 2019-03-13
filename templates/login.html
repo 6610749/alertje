@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login | alertje</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="/static/libs/assets/animate.css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/static/libs/assets/font-awesome/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/libs/assets/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/static/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+    <link rel="icon" type="image/png" href="/static/img/logo.png" />
+</head>
+
+<body>
+    <div class="app app-header-fixed ">
+        <div class="container w-xxl w-auto-xs" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
+            <a href="https://alertje.nl/" class="navbar-brand block m-t"><img src="/static/img/logo.png" /></a>
+            <div class="m-b-lg">
+                <div class="wrapper text-center">
+                    <strong>Je kunt je wachtwoord vinden in het welkomstbericht die je van ons hebt ontvangen.</strong>
+                </div>
+                <form method="POST" name="form" class="form-validation">
+                    <div class="text-danger wrapper text-center" ng-show="authError">
+                        {{form.errors.__extra__}}
+                        {{ "".join(form.errors.number) }}
+                        {{ "".join(form.errors.password) }}
+                    </div>
+                    {{ form.hidden_tag() }}
+                    <div class="list-group list-group-sm">
+                        <div class="list-group-item">
+                            {{ form.number(maxlength=255, placeholder="Telefoonnummer (+316..)", class="form-control no-border") }}
+                        </div>
+                        <div class="list-group-item">
+                            {{ form.password(maxlength=8, placeholder="Wachtwoord", class="form-control no-border") }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" ng-disabled='form.$invalid'>Inloggen</button>
+                                  <div class="line line-dashed"></div>
+                </form>
+            </div>
+            <div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+                <p>
+                    <small class="text-muted">Ontvang direct gratis meldingen zodra er korting is op jouw lievelingsmerken. <br>&copy; 2018</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

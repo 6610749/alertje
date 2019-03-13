@@ -1,0 +1,91 @@
+.btn-primary {
+    color: #fff;
+    background: #15CD72;
+    border: 1px solid #15CD72;
+}
+html {
+font-family: proxima-nova, sans-serif;
+}
+
+body {
+font-family: proxima-nova, sans-serif;
+}
+.btn-primary:hover {
+    color: #fff;
+    background: #15CD72;
+    border: 1px solid #15CD72;
+}
+
+.bg-dark {
+    background-color: #031b4d;
+}
+
+.bg-light {
+background-color: #031b4d;
+}
+
+.navbar-brand img {
+    max-height: 40px !important;
+}
+
+.app-aside{
+font-weight: 400;
+font-size: 16px;
+color: #fff !important;
+font-family: proxima-nova, sans-serif;
+}
+
+.gear_icon {
+    background-color: #031b4d !important;
+}
+
+.price {
+  position:relative;
+  float:right;
+  font-family: proxima-nova, sans-serif;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #15CD72;
+  color: #fff;
+  margin-top: 10px;
+
+}
+.small {
+text-transform: uppercase;
+    color: #677694;
+    font-weight: 600;
+    font-size: 13px;
+    transition: padding 0s linear .4s;
+    cursor: pointer;
+}
+
+.color {
+color: #fff !important;
+}
+.color_small {
+color: #677694;
+}
+.bcolor {
+  background-color: #fff !important;
+}
+
+.bg-dark .nav > li:hover > a, .bg-dark .nav > li:focus > a, .bg-dark .nav > li.active > a {
+    background-color: #344470;
+}
+.color_icon {
+color: #1fc3e9;
+}
+ .table-bordered > tbody > tr > th{
+   border: 1px solid #eaeff0;
+ }
+
+.weight {
+font-weight: 600;
+font-family: proxima-nova, sans-serif;
+}
+
+.header {
+  font-weight: 600;
+  font-family: proxima-nova, sans-serif;
+  font-size:16px;
+}

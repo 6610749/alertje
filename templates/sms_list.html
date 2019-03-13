@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}SMS queue{% endblock %}
+{% block page_title %}SMS queue{% endblock %}
+{% block nav_sms %}active{% endblock %}
+
+{% block action_button %}<a class="btn btn-sm w-xs font-bold btn-primary modal-ctrl" href="{{url_for('sms_add')}}">Nieuw</a>{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ui-jq="dataTable" ui-options="{pageLength: 50}"
+                class="table table-striped b-t b-b">
+                <thead>
+                    <tr>
+                        <th>Recipient</th>
+                        <th>Is sent</th>
+                        <th>Queued At</th>
+                        <th>Sent At</th>
+                        <th style="width:50%;">Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sms in smses %}
+                    <tr>
+                        <td>{{sms.recipient}}</td>
+                        <td><label class="label bg-{{'info' if sms.is_sent else 'danger'}}">{{'Yes' if sms.is_sent else 'No'}}</label></td>
+                        <td>{{sms.queued_at}}</td>
+                        <td>{{sms.sent_at if sms.sent_at else ''}}</td>
+                        <td>{{sms.message}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Resend welcome{% endblock %}
+{% block page_title %}Resend welcome{% endblock %}
+{% block nav_subscription %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="alert alert-warning">
+        Do you really want to resend welcome for <b>{{subscription.brand_id}} to {{subscription.customer_id}}</b>?
+        </div>
+        <form method="POST">
+                <input type="submit" class="btn btn-warning" value="Resend" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}Products{% endblock %}
+{% block page_title %}Products{% endblock %}
+{% block nav_product %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ui-jq="dataTable" ui-options="{columnDefs: [{ orderable: false, targets: 6 }], pageLength: 50}"
+                class="table table-striped b-t b-b">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Description</th>
+                        <th style="width:150px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td><img src="{{product.image}}" style="width:50px;" /></td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.brand_id}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.discount}}</td>
+                        <td>{{product.description}}</td>
+                        <td>
+                            <a href="{{product.url}}" class="btn btn-default btn-xs" target="_blank norel">Visit</a>
+                            <a href="{{url_for('product_price', id=product.id)}}" class="btn btn-default btn-xs modal-ctrl">Prices</a>
+                            <a href="{{url_for('product_remove', id=product.id)}}" class="btn btn-default btn-xs modal-ctrl">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

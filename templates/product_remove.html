@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete Product{% endblock %}
+{% block page_title %}Delete Product{% endblock %}
+{% block nav_product %}active{% endblock %}
+
+{% block content %}
+<div class="alert alert-danger">
+    Do you really want to delete this <b>product {{product}}</b>?
+</div>
+<form method="POST">
+    <input class="btn btn-sm btn-danger" type="submit" value="Delete" />
+</form>
+</div>
+</div>
+
+{% endblock %}

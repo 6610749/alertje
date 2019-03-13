@@ -1,0 +1,4 @@
+test/file.db
+conf/app.conf
+conf/user.list
+__pycache__

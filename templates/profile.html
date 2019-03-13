@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+{% block page_title %}Profile{% endblock %}
+{% block nav_profile %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th class="header">Telefoonnummer</th>
+                    <td>{{ request.customer.number }}</td>
+                </tr>
+                <tr>
+                    <th class="header">Wachtwoord</th>
+                    <td>{{ request.customer.password }}</td>
+                </tr>
+                <tr>
+                    <th class="header">Merken</th>
+                    <td>
+                        {% for subscription in request.customer.subscriptions %}
+                            <div>{{ subscription.brand_id }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

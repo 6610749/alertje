@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{'Edit' if customer.pk else 'New'}} customer{% endblock %}
+{% block page_title %}{{'Edit' if customer.pk else 'New'}} customer{% endblock %}
+{% block nav_customer %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form method="POST" role="form">
+            {{ form.hidden_tag() }}
+            <div class="form-group {{'has-error' if form.errors.number else ''}}">
+                {{ form.number.label }} {{ form.number(maxlength=255, class="form-control") }}
+                <span class="help-block m-b-none">{{ "".join(form.errors.number) }}</span>
+            </div>
+            <div class="form-group {{'has-error' if form.errors.password else ''}}">
+                {{ form.password.label }} {{ form.password(maxlength=8, class="form-control") }}
+                <span class="help-block m-b-none">{{ "".join(form.errors.password) }}</span>
+            </div>
+            <div class="checkbox">
+                <label class="i-checks">{{ form.is_admin() }}<i></i>{{ form.is_admin.label.text }}</label>
+            </div>
+            <input type="submit" class="btn btn-sm btn-primary" value="Save">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

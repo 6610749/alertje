@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete Brand{% endblock %}
+{% block page_title %}Delete Brand{% endblock %}
+{% block nav_brand %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="alert alert-danger">
+            Do you really want to delete brand <b>{{brand}} and all it's products</b>?
+        </div>
+        <form method="POST">
+            <input class="btn btn-sm btn-danger" type="submit" value="Delete" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}

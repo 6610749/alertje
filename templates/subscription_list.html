@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block title %}Subscriptions{% endblock %}
+{% block page_title %}Subscriptions{% endblock %}
+{% block nav_subscription %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ui-jq="dataTable" ui-options="{columnDefs: [{ orderable: false, targets: 4 }], pageLength: 50}"
+                class="table table-striped b-t b-b">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Number</th>
+                        <th>Is subscribed</th>
+                        <th>Has received welcome</th>
+                        <th style="width:170px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subscription in subscriptions %}
+                    <tr>
+                        <td>{{subscription.brand_id}}</td>
+                        <td>{{subscription.customer_id}}</td>
+                        <td><label class="label bg-{{'info' if subscription.is_subscribed else 'danger'}}">{{'Yes' if subscription.is_subscribed else 'No'}}</label></td>
+                        <td><label class="label bg-{{'info' if subscription.has_welcome else 'danger'}}">{{'Yes' if subscription.has_welcome else 'No'}}</label></td>
+                        <td>
+                            <a href="{{url_for('subscription_toggle', from_view='subscription_list', id=subscription.id)}}"
+                                class="btn btn-default btn-xs modal-ctrl">{{'Unsubscribe' if subscription.is_subscribed
+                                else 'Subscribe'}}</a>
+                            <a href="{{url_for('subscription_welcome', from_view='subscription_list', id=subscription.id)}}"
+                                class="btn btn-default btn-xs modal-ctrl">Resend welcome</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

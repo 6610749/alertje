@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete Customer{% endblock %}
+{% block page_title %}Delete Customer{% endblock %}
+{% block nav_Customer %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="alert alert-danger">
+            Do you really want to delete this <b>customer {{customer}} and their subscriptions</b>?
+        </div>
+        <form method="POST">
+            <input class="btn btn-sm btn-danger" type="submit" value="Delete" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}

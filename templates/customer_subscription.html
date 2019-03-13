@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{customer.number}} Subscriptions{% endblock %}
+{% block page_title %}{{customer.number}} Subscriptions{% endblock %}
+{% block nav_customer %}active{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table ui-jq="dataTable" ui-options="{columnDefs: [{ orderable: false, targets: 3 }], pageLength: 50}"
+                class="table table-striped b-t b-b">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Is subscribed</th>
+                        <th>Has received welcome</th>
+                        <th style="width:170px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for brand in brands %}
+                    <tr>
+                        <td>{{brand.name}}</td>
+                        <td><label class="label bg-{{'info' if brand.is_subscribed else 'danger'}}">{{'Yes' if brand.is_subscribed else 'No'}}</label></td>
+                        <td><label class="label bg-{{'info' if brand.has_welcome else 'danger'}}">{{'Yes' if brand.has_welcome else 'No'}}</label></td>
+                        <td>
+                            <form method="POST" action="{{url_for('customer_subscribe', number=customer.number, brand=brand.name)}}">
+                                <input type="submit" class="btn btn-default btn-xs modal-ctrl" value="{{'Unsubscribe' if brand.is_subscribed
+                                else 'Subscribe'}}" />
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

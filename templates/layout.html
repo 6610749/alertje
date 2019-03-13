@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %} | alertje</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="/static/libs/assets/animate.css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/static/libs/assets/font-awesome/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/libs/assets/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/static/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" />
+    <link rel="icon" type="image/png" href="/static/img/logo.png" />
+    <link rel="stylesheet" href="https://use.typekit.net/oli0mxc.css">
+</head>
+
+<body>
+    <div class="app app-header-fixed ">
+        <!-- header -->
+        <header id="header" class="app-header navbar" role="menu">
+            <!-- navbar header -->
+            <div class="navbar-header bg-light">
+              <button class="pull-right visible-xs gear_icon" ui-toggle-class="show" target=".navbar-collapse">
+                  <i class="glyphicon glyphicon-cog color"></i>
+              </button>
+                <button class="pull-right visible-xs" ui-toggle-class="off-screen" target=".app-aside" ui-scroll="app">
+                    <i class="glyphicon glyphicon-align-justify color"></i>
+                </button>
+                <!-- brand -->
+                <a href="#" class="navbar-brand text-lt">
+                    <img src="/static/img/logowhite.png" alt="alertje" >
+                </a>
+                <!-- / brand -->
+            </div>
+            <!-- / navbar header -->
+
+            <!-- navbar collapse -->
+            <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only">
+                <!-- buttons -->
+                <div class="nav navbar-nav hidden-xs">
+                    <a href="#" class="btn no-shadow navbar-btn" ui-toggle-class="app-aside-folded" target=".app">
+                        <i class="fa fa-dedent fa-fw text"></i>
+                        <i class="fa fa-indent fa-fw text-active"></i>
+                    </a>
+                </div>
+                {% if request.customer.is_admin %}
+                <ul class="nav navbar-nav hidden-sm">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            <i class="fa fa-fw fa-plus visible-xs-inline-block"></i>
+                            <span class="color_small weight">New</span> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a class="modal-ctrl" href="{{url_for('brand_form')}}">Brand</a></li>
+                            <li><a class="modal-ctrl" href="{{url_for('customer_form')}}">Customer</a></li>
+                            <li><a class="modal-ctrl" href="{{url_for('sms_add')}}">SMS</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+                <!-- / buttons -->
+
+                <!-- nabar right -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
+                            <span class="hidden-sm hidden-md weight color_small">{{ session['customer'] }}</span> <b class="caret"></b>
+                        </a>
+                        <!-- dropdown -->
+                        <ul class="dropdown-menu animated fadeInRight w">
+                            <li>
+                                <a href="{{ url_for('profile') }}">Profiel</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ url_for('logout') }}">Afmelden</a>
+                            </li>
+                        </ul>
+                        <!-- / dropdown -->
+                    </li>
+                </ul>
+                <!-- / navbar right -->
+            </div>
+            <!-- / navbar collapse -->
+        </header>
+        <!-- / header -->
+
+
+        <!-- aside -->
+        <aside id="aside" class="app-aside hidden-xs bg-dark">
+            <div class="aside-wrap">
+                <div class="navi-wrap">
+                    <!-- nav -->
+                    <nav ui-nav class="navi clearfix">
+                        <ul class="nav">
+                            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs small">
+                                <span class="color_small">MENU</span>
+                            </li>
+                            <li class="{% block nav_dashboard %}{% endblock %}">
+                                <a href="{{ url_for('customer_update', number=session['customer']) }}" class="auto">
+                                    <i class="glyphicon glyphicon-stats icon color_icon"></i>
+                                    <span class="color">Dashboard</span>
+                                </a>
+                            </li>
+                            {% if request.customer.is_admin %}
+                            <li class="{% block nav_brand %}{% endblock %}">
+                                <a href="{{ url_for('brand_list') }}" class="auto">
+                                    <i class="glyphicon glyphicon-briefcase icon color_icon"></i>
+                                    <span class="color">Merken</span>
+                                </a>
+                            </li>
+                            <li class="{% block nav_customer %}{% endblock %}">
+                                <a href="{{ url_for('customer_list') }}" class="auto">
+                                    <i class="glyphicon glyphicon-user icon color_icon"></i>
+                                    <span class="color">Klanten</span>
+                                </a>
+                            </li>
+                            <li class="{% block nav_subscription %}{% endblock %}">
+                                <a href="{{ url_for('subscription_list') }}" class="auto">
+                                    <i class="glyphicon glyphicon-file icon color_icon"></i>
+                                    <span class="color">Abonnementen</span>
+                                </a>
+                            </li>
+                            <li class="{% block nav_price %}{% endblock %}">
+                                <a href="{{ url_for('product_price') }}" class="auto">
+                                    <i class="glyphicon glyphicon-transfer icon color_icon"></i>
+                                    <span class="color">Price Changes</span>
+                                </a>
+                            </li>
+                            <li class="{% block nav_product %}{% endblock %}">
+                                <a href="{{ url_for('product_list') }}" class="auto">
+                                    <i class="glyphicon glyphicon-th icon color_icon"></i>
+                                    <span class="color">Products</span>
+                                </a>
+                            </li>
+                            <li class="{% block nav_sms %}{% endblock %}">
+                                <a href="{{ url_for('sms_list') }}" class="auto">
+                                    <i class="glyphicon glyphicon-envelope icon color_icon"></i>
+                                    <span class="color">SMS queue</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li class="line dk"></li>
+
+                            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs small">
+                                <span class="color_small">JOUW ACCOUNT</span>
+                            </li>
+                            <li class="{% block nav_profile %}{% endblock %}">
+                                <a href="{{ url_for('profile') }}">
+                                    <i class="icon-user icon color_icon"></i>
+                                    <span class="color">Profiel</span>
+                                </a>
+                            </li>
+                            <li class="{% block nav_help %}{% endblock %}">
+                                <a href="{{ url_for('help') }}">
+                                    <i class="icon-question icon color_icon"></i>
+                                    <span class="color">Help</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- nav -->
+                </div>
+            </div>
+        </aside>
+        <!-- / aside -->
+
+
+        <!-- content -->
+        <div id="content" class="app-content" role="main">
+            <div class="app-content-body ">
+                <div class="hbox hbox-auto-xs hbox-auto-sm">
+                    <!-- main -->
+                    <div class="col">
+                        <!-- main header -->
+                        <div class="bg-light lter b-b wrapper-md bcolor">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="pull-right">{% block action_button %}{% endblock %}</div>
+                                    <h1 class="m-n font-thin h3 text-black">{% block page_title %}{% endblock %}</h1>
+                                    <small class="text-muted">{% block page_description %}{% endblock %}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / main header -->
+                        <div class="wrapper-md">
+                          <div class="panel panel-default">
+                              <div class="panel-body bg-success bg">
+                                <span class="header color">Je bent aangemeld voor de volgende merk(en):</span><br><br>
+                                <span class="color">{% for subscription in request.customer.subscriptions %}
+                                    <div>{{ subscription.brand_id }}</span></div>
+                                {% endfor %}
+                              </div>
+                          </div>
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-success">{{ message }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                    <!-- / main -->
+                </div>
+            </div>
+        </div>
+        <!-- /content -->
+
+        <!-- footer -->
+        <!-- / footer -->
+    </div>
+
+    <script src="/static/libs/jquery/jquery/dist/jquery.js"></script>
+    <script src="/static/libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/static/js/ui-load.js"></script>
+    <script src="/static/js/ui-jp.config.js"></script>
+    <script src="/static/js/ui-jp.js"></script>
+    <script src="/static/js/ui-nav.js"></script>
+    <script src="/static/js/ui-toggle.js"></script>
+    <script src="/static/js/ui-client.js"></script>
+    <script src="/static/js/modal.js"></script>
+
+</body>
+
+</html>
